@@ -306,6 +306,9 @@ class HFLM(TemplateLM):
                 example_input=dataset[0]
             )
             self.model.model.nncf.load_state_dict(nncf_ckpt["nncf_state_dict"])
+            from nncf.torch.strip_tuned_lora_model import strip_tuned_lora_model
+            self.model.model = strip_tuned_lora_model(self.model.model)
+
 
     def _get_accelerate_args(
         self,
